@@ -1,0 +1,7 @@
+# Once-Upon-a-Viz
+A class project for DS4200 Information Presentation and Visualization at Northeastern University. 
+
+> The goal of the final project for this course is to expose students to the real-world process of researching, designing, and implementing an in-depth visualization tool. As part of the project, groups of 4 students will work with real datasets, complete a task analysis, design and implement an interactive web-based visualization, solicit and incorporate feedback, and communicate the final project and results through a webpage, research paper, demo video, and in-class presentation. We will be following the Design Study “Lite” Methodology advocated by Borkin et al. (2017), and Syeda et al. (2020).
+
+ 
+As more of our time is spent in the digital world, streaming services and social networking apps have almost entirely replaced books. Despite the availability of e-readers such as Kindles, reading has become less and less common. One way this shift can be reversed is by giving people resources to find new books to read. The general area of interest for our project is the ratings and rankings of books, and how they compare to one another. We intend to address the comparison of popular books, and allow book readers to get a sense of similarities and differences between books. This will potentially give them new books to read based on ones they have enjoyed in the past. We believe this visualization will address an important topic as reading improves one's focus, memory, empathy, and communication skills.  
