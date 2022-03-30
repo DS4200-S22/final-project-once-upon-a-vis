@@ -1,4 +1,5 @@
 let current_index = 0;
+let bar_data;
 let rating_bars;
 let ratings_y;
 let ratings_x;
@@ -20,6 +21,12 @@ const bar_svg = d3.select("#ratings")
 
 d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((goodreads) => {
   d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_ratings.csv').then((rates) => {
+
+    // -----< print first 10 lines of each of these files in the console >-----
+    for (i = 0; i < 10; i++) {
+      console.log(goodreads[i]);
+      console.log(rates[i]);
+    }
 
     // -------------------------< make a dropdown >--------------------------
     // dropdown creation
@@ -72,16 +79,16 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
     var values = Object.keys(new_bars).map(function (key) {
       return new_bars[key];
     });
-    values = values.slice(1, values.length);
+    bar_data = values.slice(1, values.length);
 
     // add the 5 dummy bars to the graph (a solid blue-gray color!)
     rating_bars = bar_svg.selectAll()
-      .data(values)
+      .data(bar_data)
       .enter()
       .append('rect')
       .attr('x', (actual, index, array) => ratings_x(index))
       .attr('y', (actual, index, array) => ratings_y(10000))
-      .attr('height', (s) => height - margin.bottom - ratings_y(10000))
+      .attr('height', (actual, index, array) => height - margin.bottom - ratings_y(10000))
       .attr('width', ratings_x.bandwidth());
 
 
@@ -122,7 +129,12 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
     }
 
     // update the bars!!
-    function update_bars(a, b, c, d, e) {
+    function update_bars(arr) {
+      rating_bars.transition()
+        .duration(1000)
+        .attr('y', (actual, index, array) => ratings_y(arr[index]))
+        .attr('height', (actual, index, array) => height - margin.bottom - ratings_y(arr[index]))
+
     }
 
     // update the entire graph
@@ -134,8 +146,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       let e = rates[current_index]["1 Star"];
 
       let max = d3.max([a, b, c, d, e]);
-      update_y(max);
-      update_bars(a, b, c, d, e);
+      update_y(max * 1.5);
+      update_bars([a, b, c, d, e]);
     }
 
   });
