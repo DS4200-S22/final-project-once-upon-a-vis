@@ -1,0 +1,142 @@
+let current_index = 0;
+let rating_bars;
+let ratings_y;
+let ratings_x;
+
+// Set margins and dimensions 
+const margin = { top: 50, right: 50, bottom: 50, left: 200 };
+const width = 900; //- margin.left - margin.right;
+const height = 650; //- margin.top - margin.bottom;
+
+// const bar svg
+const bar_svg = d3.select("#ratings")
+  .append("svg")
+  .attr("class", "holder")
+  .attr("width", width - margin.left - margin.right)
+  .attr("height", height - margin.top - margin.bottom)
+  .attr("viewBox", [0, 0, width, height]);
+
+
+
+d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((goodreads) => {
+  d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_ratings.csv').then((rates) => {
+
+    // -------------------------< make a dropdown >--------------------------
+    // dropdown creation
+    d3.select("#book_dropdown")
+      .append("select")
+      .attr("class", "selection")
+      .on('change', function () {
+        let p = d3.select('#book_dropdown').select(".selection").node().value;
+        update_global_index(p);
+        book_selection();
+      })
+      .selectAll("option")
+      .data(goodreads)
+      .enter()
+      .append("option")
+      .sort((a, b) => d3.ascending(a["Title"], b["Title"])) // Alphabetical Sort
+      .attr("value", function (d) { return d["Title"]; })
+      .text(function (d) { return d["Title"]; });
+
+
+    // -----------------< build original ratings bar graph >-----------------
+    // Create X scale
+    ratings_x = d3.scaleBand() // uses scaleBand rather than linearly scaling data
+      .domain(d3.range(5))
+      .range([margin.left, width - margin.right])
+      .padding(0.1);
+
+    // Create labels
+    let stars = ["5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Star"];
+
+    // Create a stand-in y-scale
+    ratings_y = d3.scaleLinear()
+      .domain([0, 50000]) // dummy max of 50,000
+      .range([height - margin.bottom, margin.top]);
+
+    // add x axis to svg 
+    bar_svg.append("g")
+      .attr("transform", `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(ratings_x) // gives the x axis scale
+        .tickFormat(i => stars[i]))  // use .tickformat to add specific labels to each tick mark
+      .attr("font-size", '20px');
+
+    // add y axis to svg
+    const y_axis = bar_svg.append("g")
+      .attr("transform", `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(ratings_y));
+
+    // new bars
+    let new_bars = rates[0];
+    var values = Object.keys(new_bars).map(function (key) {
+      return new_bars[key];
+    });
+    values = values.slice(1, values.length);
+
+    // add the 5 dummy bars to the graph (a solid blue-gray color!)
+    rating_bars = bar_svg.selectAll()
+      .data(values)
+      .enter()
+      .append('rect')
+      .attr('x', (actual, index, array) => ratings_x(index))
+      .attr('y', (actual, index, array) => ratings_y(10000))
+      .attr('height', (s) => height - margin.bottom - ratings_y(10000))
+      .attr('width', ratings_x.bandwidth());
+
+
+    // -----------< helper functions to dynamically change graph >-----------
+
+    // get book index by the Goodreads ID
+    function get_book_ind(ID) {
+      for (i in rates) {
+        if (rates[i]["Goodreads_ID"] == ID) {
+          return i;
+        }
+      }
+    }
+
+    // get book Goodreads ID by title
+    function get_book_ID(title) {
+      for (i in goodreads) {
+        if (goodreads[i]["Title"] == title) {
+          return goodreads[i]["Goodreads_ID"];
+        }
+      }
+    }
+
+    // update_index
+    function update_global_index(val) {
+      let title = val;
+      let ID = get_book_ID(title);
+      let ind = get_book_ind(ID);
+      current_index = ind;
+    }
+
+    // update the y axis
+    function update_y(max) {
+      ratings_y.domain([0, max]);
+      y_axis.transition()
+        .duration(1000)
+        .call(d3.axisLeft(ratings_y));
+    }
+
+    // update the bars!!
+    function update_bars(a, b, c, d, e) {
+    }
+
+    // update the entire graph
+    function book_selection() {
+      let a = rates[current_index]["5 Stars"];
+      let b = rates[current_index]["4 Stars"];
+      let c = rates[current_index]["3 Stars"];
+      let d = rates[current_index]["2 Stars"];
+      let e = rates[current_index]["1 Star"];
+
+      let max = d3.max([a, b, c, d, e]);
+      update_y(max);
+      update_bars(a, b, c, d, e);
+    }
+
+  });
+});
