@@ -1,8 +1,7 @@
-const formatYear = d3.timeParse("%d/%m/%Y");
+const formatYear = d3.timeParse("%m/%d/%y");
 
 
-
-d3.csv('/Users/Vero/Documents/final-project-once-upon-a-vis/Data/top100_goodreads_cleaned_csv').then((data) => {
+d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((data) => {
 
     console.log(data);
 
@@ -11,12 +10,14 @@ d3.csv('/Users/Vero/Documents/final-project-once-upon-a-vis/Data/top100_goodread
 var date_and_value = data.map(function(d) {
   return {
   	name: d.Title,
-  	date: formatYear(d.Publ_Date).getFullYear(),
-    value: parseFloat(d.Value.replace('$', ''))
+  	date: formatYear(d.Publ_Date),
+    value: parseFloat(d.Value.split("$")[1].replace(/,/g, ""))
   }
 });
 
 console.log(date_and_value);
+
+console.log(parseFloat("1,234,562".replace(/,/g, "")))
 
 
 
@@ -58,10 +59,10 @@ const svg = d3.select("#line_graph")
     svg.append("g")
       .call(d3.axisLeft(y))
 
-var cont = d3.rollup(date_and_value, v => d3.sum(v, d => d.value), d => d.date)
-console.log(cont)
+// var cont = d3.rollup(date_and_value, v => d3.sum(v, d => d.value), d => d.date)
+// console.log(cont)
 
-console.log(cont.value);
+// console.log(cont.value);
 
 
 
