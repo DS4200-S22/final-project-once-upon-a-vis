@@ -80,15 +80,52 @@ const svg = d3.select("#line_graph")
         )
 
 
+    // create a tooltip
+    const Tooltip = d3.select("#line_graph")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "5px")
 
-    svg.selectAll("dot")
-        .datum(date_and_value)
-      .enter().append("circle")
-         .attr("stroke", "black")
-         .attr("fill", function(d) { return "black" })
-         .attr("cx", function(d) { return x(d.date) })
-         .attr("cy", function(d) { return y(d.value) })
-         .attr("r", function(d) { return 3 });
+      // Three function that change the tooltip when user hover / move / leave a cell
+      const mouseover = function(event,d) {
+        Tooltip
+          .style("opacity", 1)
+      }
+      const mousemove = function(event,d) {
+        Tooltip
+          .hmtl("Book: " + d.name)
+          .html("Total Sales: " + d.value)
+          .style("left", `${event.layerX+10}px`)
+          .style("top", `${event.layerY}px`)
+      }
+      const mouseleave = function(event,d) {
+        Tooltip
+          .style("opacity", 0)
+      }
+
+
+
+    // Add the points
+    svg
+      .append("g")
+      .selectAll("dot")
+      .data(date_and_value)
+      .join("circle")
+        .attr("class", "myCircle")
+        .attr("cx", d => x(d.date))
+        .attr("cy", d => y(d.value))
+        .attr("r", 3)
+        .attr("stroke", "#69b3a2")
+        .attr("stroke-width", 1)
+        .attr("fill", "white")
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
 });
 
 
