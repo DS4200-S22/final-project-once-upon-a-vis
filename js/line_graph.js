@@ -80,13 +80,15 @@ const svg = d3.select("#line_graph")
         )
 
 
+
+    const yTooltipOffset = 1
     // create a tooltip
     const Tooltip = d3.select("#line_graph")
       .append("div")
       .style("opacity", 0)
       .attr("class", "tooltip")
       .style("background-color", "white")
-      .style("border", "solid")
+      .style("border", "dashed")
       .style("border-width", "2px")
       .style("border-radius", "5px")
       .style("padding", "5px")
@@ -98,10 +100,9 @@ const svg = d3.select("#line_graph")
       }
       const mousemove = function(event,d) {
         Tooltip
-          .hmtl("Book: " + d.name)
-          .html("Total Sales: " + d.value)
-          .style("left", `${event.layerX+10}px`)
-          .style("top", `${event.layerY}px`)
+          .html("Book: " + d.name + "<br> Total Sales: " + d.value + "<br> Date Published: " + d.date)
+          .style("left", event.x + "px")
+          .style("top", event.y + "px")
       }
       const mouseleave = function(event,d) {
         Tooltip
