@@ -17,7 +17,6 @@ var date_and_value = data.map(function(d) {
 
 console.log(date_and_value);
 
-console.log(parseFloat("1,234,562".replace(/,/g, "")))
 
 
 
@@ -78,6 +77,17 @@ const svg = d3.select("#line_graph")
         .x(function(d) {return x(d.date)})
         .y(function(d) { return y(d.value) })
         )
+
+
+
+    svg.selectAll("dot")
+        .datum(date_and_value)
+      .enter().append("circle")
+         .attr("stroke", "black")
+         .attr("fill", function(d) { return "black" })
+         .attr("cx", function(d) { return x(d.date) })
+         .attr("cy", function(d) { return y(d.value) })
+         .attr("r", function(d) { return 3 });
 });
 
 
