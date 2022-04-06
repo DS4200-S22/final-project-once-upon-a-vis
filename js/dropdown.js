@@ -22,12 +22,6 @@ const bar_svg = d3.select("#ratings")
 d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((goodreads) => {
   d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_ratings.csv').then((rates) => {
 
-    // -----< print first 10 lines of each of these files in the console >-----
-    for (i = 0; i < 10; i++) {
-      console.log(goodreads[i]);
-      console.log(rates[i]);
-    }
-
     // -------------------------< make a dropdown >--------------------------
     // dropdown creation
     d3.select("#book_dropdown")
@@ -122,7 +116,11 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // update the y axis
     function update_y(max) {
+
       ratings_y.domain([0, max]);
+
+
+
       y_axis.transition()
         .duration(1000)
         .call(d3.axisLeft(ratings_y));
@@ -130,11 +128,17 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // update the bars!!
     function update_bars(arr) {
+      // new bars
+      let new_bars = rates[current_index];
+      let values = Object.keys(new_bars).map(function (key) {
+        return new_bars[key];
+      });
+      bar_data = values.slice(1, values.length);
+
       rating_bars.transition()
         .duration(1000)
-        .attr('y', (actual, index, array) => ratings_y(arr[index]))
-        .attr('height', (actual, index, array) => height - margin.bottom - ratings_y(arr[index]))
-
+        .attr('y', (actual, index, array) => ratings_y(actual))
+        .attr('height', (actual, index, array) => height - margin.bottom - ratings_y(actual));
     }
 
     // update the entire graph
@@ -146,7 +150,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       let e = rates[current_index]["1 Star"];
 
       let max = d3.max([a, b, c, d, e]);
-      update_y(max * 1.5);
+      update_y(max);
       update_bars([a, b, c, d, e]);
     }
 
