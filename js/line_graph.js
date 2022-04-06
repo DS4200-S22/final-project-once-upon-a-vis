@@ -34,7 +34,7 @@ const margin = {top: 10, right: 30, bottom: 30, left: 60},
 
 
 //   // append the svg object to the body of the page
-const svg = d3.select("#line_graph")
+var svg = d3.select("#line_graph")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -128,14 +128,6 @@ const svg = d3.select("#line_graph")
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
 
-
-
-    var svg1 = d3.select('svg1')
-
-var myimage = svg1.append('image')
-    .attr('xlink:href', 'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?fit=crop&w=200&h=200')
-    .attr('width', 200)
-    .attr('height', 200)
 });
 
 
