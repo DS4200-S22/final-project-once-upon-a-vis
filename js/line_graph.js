@@ -100,7 +100,7 @@ const svg = d3.select("#line_graph")
       }
       const mousemove = function(event,d) {
         Tooltip
-          .html("Book: " + d.name + "<br> Total Sales: " + d.value + "<br> Date Published: " + d.date)
+          .html("Book: " + d.name + "<br> Total Sales: " + d.value + " dollars ($)")
           .style("left", event.x + "px")
           .style("top", event.y + "px")
       }
@@ -127,6 +127,15 @@ const svg = d3.select("#line_graph")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
+
+
+
+    var svg1 = d3.select('svg1')
+
+var myimage = svg1.append('image')
+    .attr('xlink:href', 'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?fit=crop&w=200&h=200')
+    .attr('width', 200)
+    .attr('height', 200)
 });
 
 
