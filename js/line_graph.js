@@ -32,8 +32,7 @@ const margin = {top: 10, right: 30, bottom: 30, left: 60},
     console.log(maxValue);
 
 
-//   // append the svg object to the body of the page
-let svg = d3.select("#line_graph")
+
 
 
 //   // append the svg object to the body of the page
