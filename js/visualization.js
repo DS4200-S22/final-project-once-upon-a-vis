@@ -1,40 +1,48 @@
 // set the dimensions and margins of the graph
-const w = 500
-const h = 500
-
-//title
-
+const w = 750
+const h = 750
 
 
 // append the svg object to the body of the page
-const svg = d3.select(".vis-holder")
+const svg = d3.select(".genre-bubbles")
   .append("svg")
     .attr("width", w)
     .attr("height", h)
 
 
-    data = [
-    {"Genre":"Fiction", "Count": 58},
-    {"Genre":"Mystery", "Count": 16},
-     {"Genre":"Thriller", "Count": 13},
-     {"Genre":"Suspense", "Count": 11},
-     {"Genre":"Historical", "Count": 21},
-     {"Genre":"Novels", "Count": 31},
-     {"Genre":"Fantasy", "Count": 23},
-       ];
-
-
 //Read data
-//d3.csv("js/genres_with_counts.csv").then( function(data) {
+d3.csv("js/genres_with_counts.csv").then((data) => {
 
-  // Size scale for countries
+  // Size scale for cošntries
   const size = d3.scaleLinear()
     .domain([0, 100])
     .range([7,200])  // circle will be between 7 and 55 px wide
 
+    // NEW CODE creates tooltip
+        const tooltip = d3.select(".genre-bubbles")
+                            .append("div")
+                            .attr("id", "bubbles-tooltip")
+                            .style("opacity", 0)
+                            .attr("class", "bubbles-tooltip"); 
+
+        const mouseover = function(event, d) {
+            tooltip.html("Genre: " + d.Genre + "<br> Count: " + 
+                d.Count + "<br>") 
+          .style("opacity", 1);  
+        }
+
+        const mousemove = function(event, d) {
+          tooltip.style("left", (event.x) +"px") 
+          .style("top", (event.y)+"px"); 
+        }
+
+        const mouseleave = function(event, d) { 
+           tooltip.style("opacity", 0); 
+        }
+
 
     // Initialize the circle: all located at the center of the svg area
-  var node = svg.append("g")
+  const node = svg.append("g")
     .selectAll("circle")
     .data(data)
     .join("circle")
@@ -46,6 +54,9 @@ const svg = d3.select(".vis-holder")
       .style("fill-opacity", 0.8)
       .attr("stroke", "black")
       .style("stroke-width", 1)
+      .on("mouseover", mouseover)
+      .on("mousemove", mousemove)
+      .on("mouseleave", mouseleave)
 
  // Features of the forces applied to the nodes:
   const simulation = d3.forceSimulation()
@@ -67,12 +78,15 @@ const svg = d3.select(".vis-holder")
 node.append("text")
             .attr("dy", ".2em")
             .text(function(d){ 
-              d.Genre
+              return d.Genre;
             })
             .attr("font-size", (d) => {
                 return d.r/3;
             })
             .attr("fill", "black");
+    });
           
+
+
 
 
