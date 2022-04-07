@@ -6,7 +6,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
 
 
-var date_and_value = data.map(function(d) {
+const date_and_value = data.map(function(d) {
   return {
   	name: d.Title,
   	date: formatYear(d.Publ_Date),
@@ -23,13 +23,13 @@ const margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 460 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-    var maxDate = d3.max(date_and_value,function(d){return d.date; });
-    var minDate = d3.min(date_and_value,function(d){return d.date; });
-    var maxValue = d3.max(date_and_value,function(d){return d.value; });
+    const maxDate = d3.max(date_and_value,function(d){return d.date; });
+    const minDate = d3.min(date_and_value,function(d){return d.date; });
+    const maxValue = d3.max(date_and_value,function(d){return d.value; });
 
 
 //   // append the svg object to the body of the page
-var svg = d3.select("#line_graph")
+const svg = d3.select("#line_graph")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
