@@ -7,6 +7,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
 
  const date_and_value = data.map(function(d) {
+const date_and_value = data.map(function(d) {
   return {
   	name: d.Title,
   	date: formatYear(d.Publ_Date),
@@ -33,6 +34,10 @@ const margin = {top: 10, right: 30, bottom: 30, left: 60},
 
 //   // append the svg object to the body of the page
 let svg = d3.select("#line_graph")
+
+
+//   // append the svg object to the body of the page
+const svg = d3.select("#line_graph")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -55,7 +60,6 @@ let svg = d3.select("#line_graph")
       .range([ height, 0 ]);
     svg.append("g")
       .call(d3.axisLeft(y))
-
 
 
 
