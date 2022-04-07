@@ -70,7 +70,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // new bars
     let new_bars = rates[0];
-    var values = Object.keys(new_bars).map(function (key) {
+    const values = Object.keys(new_bars).map(function (key) {
       return new_bars[key];
     });
     bar_data = values.slice(1, values.length);
