@@ -4,9 +4,6 @@ const formatYear = d3.timeParse("%m/%d/%y");
 d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((data) => {
 
 
-
-
- const date_and_value = data.map(function(d) {
 const date_and_value = data.map(function(d) {
   return {
   	name: d.Title,
@@ -125,12 +122,7 @@ const svg = d3.select("#line_graph")
         .on("mouseleave", mouseleave)
 
 
-
-
-
 });
-
-
 
 
 
