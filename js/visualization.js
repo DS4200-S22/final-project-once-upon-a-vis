@@ -7,7 +7,7 @@ const h = 750
 const svg = d3.select(".genre-bubbles")
   .append("svg")
     .attr("width", w)
-    .attr("height", h)
+    .attr("height", h);
 
 
 //Read data
@@ -16,7 +16,7 @@ d3.csv("js/genres_with_counts.csv").then((data) => {
   // Size scale for cošntries
   const size = d3.scaleLinear()
     .domain([0, 100])
-    .range([7,200])  // circle will be between 7 and 55 px wide
+    .range([7,200]);  // circle will be between 7 and 55 px wide
 
     // NEW CODE creates tooltip
         const tooltip = d3.select(".genre-bubbles")
@@ -42,7 +42,9 @@ d3.csv("js/genres_with_counts.csv").then((data) => {
 
 
     // Initialize the circle: all located at the center of the svg area
-  const node = svg.append("g")
+    const g = svg.append("g");
+
+  const node = g
     .selectAll("circle")
     .data(data)
     .join("circle")
@@ -58,6 +60,7 @@ d3.csv("js/genres_with_counts.csv").then((data) => {
       .on("mousemove", mousemove)
       .on("mouseleave", mouseleave)
 
+
  // Features of the forces applied to the nodes:
   const simulation = d3.forceSimulation()
       .force("center", d3.forceCenter().x(w / 2).y(h / 2)) // Attraction to the center of the svg area
@@ -72,21 +75,22 @@ d3.csv("js/genres_with_counts.csv").then((data) => {
         node
             .attr("cx", d => d.x)
             .attr("cy", d => d.y)
-      });
-  
-
-node.append("text")
+      })
+    
+    g.selectAll("text")
+            .data(data)
+            .join("text")
+            .attr("x", node.attr('cx'))
+            .attr("y", node.attr('cy'))
+            .style("fill", "black")
+            .style("font-size", (d) => {
+                return d.r/3+"px";
+            })
             .attr("dy", ".2em")
             .text(function(d){ 
               return d.Genre;
             })
-            .attr("font-size", (d) => {
-                return d.r/3;
-            })
-            .attr("fill", "black");
     });
           
-
-
 
 
