@@ -17,7 +17,7 @@ const date_and_value = data.map(function(d) {
 
 
   	// set the dimensions and margins of the graph
-const margin = {top: 10, right: 30, bottom: 30, left: 60},
+const margin = {top: 10, right: 30, bottom: 30, left: 100},
     width = 460 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -117,7 +117,33 @@ const svg = d3.select("#line_graph")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
-
+  
+  
+    // Add the x Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+  
+  // text label for the x axis
+  svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 25) + ")")
+      .style("text-anchor", "middle")
+      .text("Year");
+  
+    // Add the y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+  
+    // text label for the y axis
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Total Sales ($)");  
 
 });
 
