@@ -26,7 +26,11 @@ h1, h2, h3 {
 }
 
 .bubbles-tooltip {
-  position: absolute;
+  position: fixed;
   text-align: center;
   padding: 10px;
+  font: 18px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
 }
