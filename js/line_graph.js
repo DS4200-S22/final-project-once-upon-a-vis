@@ -81,9 +81,6 @@ const svg = d3.select("#line_graph")
       .style("opacity", 0)
       .attr("class", "tooltip")
       .style("background-color", "white")
-      .style("border", "dashed")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
       .style("padding", "5px")
 
       // Three function that change the tooltip when user hover / move / leave a cell
@@ -123,6 +120,9 @@ const svg = d3.select("#line_graph")
 
 
 });
+
+
+
 
 
 
