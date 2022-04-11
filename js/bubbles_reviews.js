@@ -10,7 +10,6 @@ const svg_b = d3.select("#my_dataviz")
                 .attr("width", width_b)
                 .attr("height", height_b)
 
-// create dummy data -> just one element per circle
 const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_ratings.csv').then((data) => {
 
   const stars = data.map(function(d) {
@@ -36,8 +35,22 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
     }
   });
 
-  // stars_five = stars.filter(function(d){ return d.five_stars>100000})
-  // //find 4,3,2,1 data
+  
+  d3.select("#my_dataviz")
+      .append("select")
+      .attr("class", "selection")
+      // .on('change', function () { // on change, update the global index...
+      //   let p = d3.select('#book_dropdown').select(".selection").node().value;
+      //   update_global_index(p);
+      //   book_selection(); // ...and call the book selection update 
+      // })
+      .selectAll("option")
+      .data(["One Stars", "Two Stars", "Three Stars", "Four Stars", "Five Stars"])
+      .enter()
+      .append("option")
+      .attr("value", function (d) { return d; })
+      .text(function (d) { return d; });
+
 
   const size = d3.scaleLinear()
         .domain([0, 14000000])
