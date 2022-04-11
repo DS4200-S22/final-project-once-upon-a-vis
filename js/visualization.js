@@ -76,20 +76,7 @@ d3.csv("js/genres_with_counts.csv").then((data) => {
             .attr("cx", d => d.x)
             .attr("cy", d => d.y)
       })
-    
-    g.selectAll("text")
-            .data(data)
-            .join("text")
-            .attr("x", node.attr('cx'))
-            .attr("y", node.attr('cy'))
-            .style("fill", "black")
-            .style("font-size", (d) => {
-                return d.r/3+"px";
-            })
-            .attr("dy", ".2em")
-            .text(function(d){ 
-              return d.Genre;
-            })
+  
     });
           
 
