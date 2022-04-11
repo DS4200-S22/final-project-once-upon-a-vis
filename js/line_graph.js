@@ -121,8 +121,8 @@ const svg = d3.select("#line_graph")
  // text label for the x axis
   svg.append("Year")             
       .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + margin.top + 20) + ")")
+            "translate(" + (width/4) + " ," + 
+                           (height + margin.top) + ")")
       .style("text-anchor", "middle")
       .text("Date");
 
