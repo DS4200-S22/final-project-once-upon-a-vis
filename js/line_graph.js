@@ -145,8 +145,6 @@ const svg = d3.select("#line_graph")
       .style("text-anchor", "middle")
       .text("Total Sales ($)");  
 
-
-
 });
 
 
