@@ -118,6 +118,12 @@ const svg = d3.select("#line_graph")
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
   
+  
+    // Add the x Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+  
  // text label for the x axis
   svg.append("Year")             
       .attr("transform",
@@ -126,7 +132,9 @@ const svg = d3.select("#line_graph")
       .style("text-anchor", "middle")
       .text("Date");
   
-  
+    // Add the y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
   
     // text label for the y axis
   svg.append("text")
