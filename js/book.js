@@ -1,5 +1,5 @@
 
-const svg1 = d3.select("#rect").append("svg").attr("width", 800).attr("height", 600)
+const svg1 = d3.select("#book").append("svg").attr("width", 800).attr("height", 600)
 
 // Add the path using this helper function
 svg1.append('rect')
@@ -12,7 +12,7 @@ svg1.append('rect')
   .attr('fill', '#69a3b2');
 
 
-const svg2 = d3.select("#rect").append("svg").attr("width", 800).attr("height", 600)
+const svg2 = d3.select("#book").append("svg").attr("width", 800).attr("height", 600)
 
 // Add the path using this helper function
 svg1.append('rect')
@@ -24,7 +24,7 @@ svg1.append('rect')
   .attr('fill', 'black');
 
 
-  var svg3 = d3.select("#rect").append("svg").attr("width", 800).attr("height", 600)
+  var svg3 = d3.select("#book").append("svg").attr("width", 800).attr("height", 600)
 
 // Add the path using this helper function
 svg1.append('rect')

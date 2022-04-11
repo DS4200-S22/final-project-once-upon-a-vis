@@ -34,3 +34,14 @@ h1, h2, h3 {
   border: 0px;
   border-radius: 8px;
 }
+
+
+.reviews-tooltip {
+  position: fixed;
+  text-align: center;
+  padding: 10px;
+  font: 18px cursive;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+}
