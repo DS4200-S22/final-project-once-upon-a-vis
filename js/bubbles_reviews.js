@@ -57,7 +57,6 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
 const mouseover = function(event, d) {
   Tooltip
     .style("opacity", 1)
-  console.log("hello! I am working")
 }
 const mousemove = function(event, d) {
   Tooltip
