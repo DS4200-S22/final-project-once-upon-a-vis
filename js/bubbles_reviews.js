@@ -44,7 +44,7 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
         changeStars(p);
       })
       .selectAll("option")
-      .data(["One Star", "Two Stars", "Three Stars", "Four Stars", "Five Stars"])
+      .data(["Five Stars", "Four Stars", "Three Stars","Two Stars","One Star"])
       .enter()
       .append("option")
       .attr("value", function (d) { return d; })
@@ -53,7 +53,7 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
 
   const size = d3.scaleLinear()
         .domain([0, 14000000])
-        .range([20,200]) 
+        .range([30,250]) 
 
 
 
@@ -74,14 +74,17 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
   }
   let mousemove = function(event, d) {
     Tooltip
-      .html('<u>' + d.book + '</u>' + "<br>" + d.five_stars + " reviews")
+      .html('<u>' + d.book + '</u>' + "<br>" + d.four_stars + " reviews")
       .style("left", (event.x) + "px")
       .style("top", (event.y) + "px")
   }
+
   let mouseleave = function(event, d) {
     Tooltip
       .style("opacity", 0)
   }
+
+
 
 
 
@@ -147,29 +150,34 @@ function dragended(event, d) {
   function changeStars(p) {
     if (p == 'One Star'){
       node.attr('r', d=>size(d.one_star))
+          .style('fill', 'red')
 
-      mousemove = function(event, d) {
-      Tooltip
-        .html('<u>' + d.book + '</u>' + "<br>" + d.one_star + " reviews")
-        .style("left", (event.x) + "px")
-        .style("top", (event.y) + "px")
-      }
+      mousemove = function(d) {
+        Tooltip
+      .html('<u>' + d.book + '</u>' + "<br>" + d.one_star + " reviews")
+      .style("left", (event.x) + "px")
+      .style("top", (event.y) + "px")
     }
+  }
 
     if (p == 'Two Stars'){
       node.attr('r', d=>size(d.two_stars))
+          .style('fill', 'brown')
     }
 
     if (p == 'Three Stars'){
       node.attr('r', d=>size(d.three_stars))
+          .style('fill', 'orange')
     }
 
     if (p == 'Four Stars'){
       node.attr('r', d=>size(d.four_stars))
+          .style('fill', 'gold')
     }
 
     if (p == 'Five Stars'){
       node.attr('r', d=>size(d.five_stars))
+          .style('fill', 'green')
     }
 
   }

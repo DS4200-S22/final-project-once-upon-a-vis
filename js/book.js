@@ -40,14 +40,14 @@ svg1.append('text')
   .attr('y', 250)
   .attr('stroke', 'black')
   .style("font-size", 25)
-  .text("Example Title")
+  .text("Welcome to Our Visualization! Once Upon a Vis")
 
 svg1.append('text')
   .attr('x', 120)
   .attr('y', 450)
   .attr('stroke', 'black')
   .style("font-size", 25)
-  .text("Example Author")
+  .text("By Abby Carr, Anika Das, Riya Gurnani, Veronica Aguiar")
 
   var tri2 =  d3.symbol().type(d3.symbolDiamond).size(1800);
     svg1.append("path")
