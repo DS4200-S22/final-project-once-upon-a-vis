@@ -36,17 +36,24 @@ svg1.append('rect')
   .attr('fill', 'black');
 
 svg1.append('text')
-  .attr('x', 120)
-  .attr('y', 250)
+  .attr('x', 95)
+  .attr('y', 220)
   .attr('stroke', 'black')
-  .style("font-size", 25)
-  .text("Welcome to Our Visualization! Once Upon a Vis")
+  .style("font-size", 24)
+  .text("Welcome to Our Visualization:")
 
 svg1.append('text')
-  .attr('x', 120)
+  .attr('x', 95)
+  .attr('y', 270)
+  .attr('stroke', 'black')
+  .style("font-size", 24)
+  .text("Once Upon A Vis!")
+
+svg1.append('text')
+  .attr('x', 80)
   .attr('y', 450)
   .attr('stroke', 'black')
-  .style("font-size", 25)
+  .style("font-size", 16)
   .text("By Abby Carr, Anika Das, Riya Gurnani, Veronica Aguiar")
 
   var tri2 =  d3.symbol().type(d3.symbolDiamond).size(1800);
