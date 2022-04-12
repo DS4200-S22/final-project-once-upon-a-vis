@@ -36,16 +36,15 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
   });
 
   
-  d3.select("#my_dataviz")
+  d3.select("#my_dataviz_dropdown")
       .append("select")
       .attr("class", "selection")
-      // .on('change', function () { // on change, update the global index...
-      //   let p = d3.select('#book_dropdown').select(".selection").node().value;
-      //   update_global_index(p);
-      //   book_selection(); // ...and call the book selection update 
-      // })
+      .on('change', function () { 
+        let p = d3.select('#my_dataviz_dropdown').select(".selection").node().value;
+        changeStars(p);
+      })
       .selectAll("option")
-      .data(["One Stars", "Two Stars", "Three Stars", "Four Stars", "Five Stars"])
+      .data(["One Star", "Two Stars", "Three Stars", "Four Stars", "Five Stars"])
       .enter()
       .append("option")
       .attr("value", function (d) { return d; })
@@ -60,7 +59,7 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
 
 
          // create a tooltip
-  const Tooltip = d3.select("#my_dataviz")
+  let Tooltip = d3.select("#my_dataviz")
     .append("div")
     .style("opacity", 0)
     .attr("class", "reviews-tooltip")
@@ -68,21 +67,21 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
     .style("padding", "5px")
     .attr("id", "reviews-tooltip")
 
-// Three function that change the tooltip when user hover / move / leave a cell
-const mouseover = function(event, d) {
-  Tooltip
-    .style("opacity", 1)
-}
-const mousemove = function(event, d) {
-  Tooltip
-    .html('<u>' + d.book + '</u>' + "<br>" + d.five_stars + " reviews")
-    .style("left", (event.x) + "px")
-    .style("top", (event.y) + "px")
-}
-var mouseleave = function(event, d) {
-  Tooltip
-    .style("opacity", 0)
-}
+  // Three function that change the tooltip when user hover / move / leave a cell
+  let mouseover = function(event, d) {
+    Tooltip
+      .style("opacity", 1)
+  }
+  let mousemove = function(event, d) {
+    Tooltip
+      .html('<u>' + d.book + '</u>' + "<br>" + d.five_stars + " reviews")
+      .style("left", (event.x) + "px")
+      .style("top", (event.y) + "px")
+  }
+  let mouseleave = function(event, d) {
+    Tooltip
+      .style("opacity", 0)
+  }
 
 
 
@@ -129,10 +128,10 @@ function dragended(event, d) {
     .selectAll("circle")
     .data(stars)
     .join("circle")
-      .attr("r", d => size(d.five_stars))
+      .attr("r", d => size(d.five_stars)) //this is where we change 
       .attr("cx", width_b / 2)
       .attr("cy", height_b / 2)
-      .style("fill", "green")
+      .style("fill", "green") //write dict for colors 
       .style("fill-opacity", 0.7)
       .attr("stroke", "black")
       .style("stroke-width", 2)
@@ -143,6 +142,37 @@ function dragended(event, d) {
          .on("start", dragstarted)
          .on("drag", dragged)
          .on("end", dragended));
+
+
+  function changeStars(p) {
+    if (p == 'One Star'){
+      node.attr('r', d=>size(d.one_star))
+
+      mousemove = function(event, d) {
+      Tooltip
+        .html('<u>' + d.book + '</u>' + "<br>" + d.one_star + " reviews")
+        .style("left", (event.x) + "px")
+        .style("top", (event.y) + "px")
+      }
+    }
+
+    if (p == 'Two Stars'){
+      node.attr('r', d=>size(d.two_stars))
+    }
+
+    if (p == 'Three Stars'){
+      node.attr('r', d=>size(d.three_stars))
+    }
+
+    if (p == 'Four Stars'){
+      node.attr('r', d=>size(d.four_stars))
+    }
+
+    if (p == 'Five Stars'){
+      node.attr('r', d=>size(d.five_stars))
+    }
+
+  }
 
     
 });
