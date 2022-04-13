@@ -61,7 +61,7 @@ svg1.append('text')
          .attr("d", tri2)
          .attr("fill", "black")
          .attr("stroke-width", "2px")
-         .attr("transform", "translate(60, 570) rotate(150)");
+         .attr("transform", "translate(60, 570) rotate(150)"); 
 
 
 
