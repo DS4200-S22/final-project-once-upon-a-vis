@@ -35,6 +35,8 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
     }
   });
 
+
+ 
   
   d3.select("#my_dataviz_dropdown")
       .append("select")
@@ -52,8 +54,8 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
 
 
   const size = d3.scaleLinear()
-        .domain([0, 14000000])
-        .range([30,250]) 
+        .domain([0, 1400000])
+        .range([30,100]) 
 
 
 
@@ -72,12 +74,43 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
     Tooltip
       .style("opacity", 1)
   }
-  let mousemove = function(event, d) {
+
+  let mousemove1 = function(event, d) {
+
+      Tooltip
+        .html('<u>' + d.book + '</u>' + "<br>" + d.one_star + " reviews")
+        .style("left", (event.x) + "px")
+        .style("top", (event.y) + "px")
+  }
+
+  let mousemove2 = function(event, d) {
+    Tooltip
+      .html('<u>' + d.book + '</u>' + "<br>" + d.two_stars + " reviews")
+      .style("left", (event.x) + "px")
+      .style("top", (event.y) + "px")
+  }
+
+  let mousemove3 = function(event, d) {
+    Tooltip
+      .html('<u>' + d.book + '</u>' + "<br>" + d.three_stars + " reviews")
+      .style("left", (event.x) + "px")
+      .style("top", (event.y) + "px")
+  }
+
+  let mousemove4 = function(event, d) {
     Tooltip
       .html('<u>' + d.book + '</u>' + "<br>" + d.four_stars + " reviews")
       .style("left", (event.x) + "px")
       .style("top", (event.y) + "px")
   }
+
+  let mousemove5 = function(event, d) {
+    Tooltip
+      .html('<u>' + d.book + '</u>' + "<br>" + d.five_stars + " reviews")
+      .style("left", (event.x) + "px")
+      .style("top", (event.y) + "px")
+  }
+
 
   let mouseleave = function(event, d) {
     Tooltip
@@ -87,9 +120,25 @@ const data = d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-
 
 
 
-
-
-
+//Initialize the circle: all located at the center of the svg area
+  const node = svg_b.append("g")
+    .selectAll("circle")
+    .data(stars)
+    .join("circle")
+      .attr("r", d => size(d.five_stars)) //this is where we change 
+      .attr("cx", width_b / 2)
+      .attr("cy", height_b / 2)
+      .style("fill", "green") //write dict for colors 
+      .style("fill-opacity", 0.7)
+      .attr("stroke", "black")
+      .style("stroke-width", 2)
+      .on("mouseover", mouseover)
+      .on("mousemove", mousemove5)
+      .on("mouseleave", mouseleave)
+      .call(d3.drag() // call specific function when circle is dragged
+         .on("start", dragstarted)
+         .on("drag", dragged)
+         .on("end", dragended));
 
 // Features of the forces applied to the nodes:
 const simulation = d3.forceSimulation()
@@ -124,50 +173,23 @@ function dragended(event, d) {
   d.fy = null;
 }
 
-
-
-//Initialize the circle: all located at the center of the svg area
-  const node = svg_b.append("g")
-    .selectAll("circle")
-    .data(stars)
-    .join("circle")
-      .attr("r", d => size(d.five_stars)) //this is where we change 
-      .attr("cx", width_b / 2)
-      .attr("cy", height_b / 2)
-      .style("fill", "green") //write dict for colors 
-      .style("fill-opacity", 0.7)
-      .attr("stroke", "black")
-      .style("stroke-width", 2)
-      .on("mouseover", mouseover)
-      .on("mousemove", mousemove)
-      .on("mouseleave", mouseleave)
-      .call(d3.drag() // call specific function when circle is dragged
-         .on("start", dragstarted)
-         .on("drag", dragged)
-         .on("end", dragended));
-
-
   function changeStars(p) {
     if (p == 'One Star'){
       node.attr('r', d=>size(d.one_star))
           .style('fill', 'red')
-
-      mousemove = function(d) {
-        Tooltip
-      .html('<u>' + d.book + '</u>' + "<br>" + d.one_star + " reviews")
-      .style("left", (event.x) + "px")
-      .style("top", (event.y) + "px")
-    }
+          .on("mousemove", mousemove1)
   }
 
     if (p == 'Two Stars'){
       node.attr('r', d=>size(d.two_stars))
           .style('fill', 'brown')
+          .on('mousemove', mousemove2)
     }
 
     if (p == 'Three Stars'){
       node.attr('r', d=>size(d.three_stars))
           .style('fill', 'orange')
+          .on('mousemove', mousemove3)
     }
 
     if (p == 'Four Stars'){
@@ -181,6 +203,10 @@ function dragended(event, d) {
     }
 
   }
+
+
+
+
 
     
 });
