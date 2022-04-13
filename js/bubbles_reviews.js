@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 const width_b = 1000
-const height_b = 1000
+const height_b = 900
 
 
 
