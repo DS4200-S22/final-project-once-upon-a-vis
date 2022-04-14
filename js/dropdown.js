@@ -162,10 +162,6 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       .style("text-anchor", "middle")
       .text("User Star Rating");
 
-    // Add the y Axis
-    bar_svg.append("g")
-      .call(d3.axisLeft(ratings_y));
-
     // text label for the y axis
     bar_svg.append("text")
       .attr("transform", "rotate(-90)")

@@ -1,12 +1,12 @@
 
-const svg1 = d3.select("#book_cover").append("svg").attr("width", 800).attr("height", 600)
+const svg1 = d3.select("#book_cover").append("svg").attr("width", 520).attr("height", 600)
 
 // Add the path using this helper function
 svg1.append('rect')
   .attr('x', 80)
   .attr('y', 120)
   .attr('width', 400)
-  .attr('height', 600)
+  .attr('height', 478)
   .attr('stroke', 'black')
   .attr('stroke-width', '2px')
   .attr('fill', '#69a3b2');
@@ -33,47 +33,58 @@ svg1.append('rect')
   .attr('fill', 'black');
 
 svg1.append('text')
-  .attr('x', 100)
+  .attr('x', 110)
   .attr('y', 220)
   .attr('stroke', 'black')
   .style("font-size", 24)
   .text("Welcome to Our Visualization:")
 
 svg1.append('text')
-  .attr('x', 150)
-  .attr('y', 270)
-  .attr('stroke', 'black')
-  .style("font-size", 24)
-  .text("Once Upon A Vis!")
+  .attr('x', 110)
+  .attr('y', 300)
+  .attr('class', 'heavy')
+  .text("Once Upon")
+
+svg1.append('text')
+  .attr('x', 275)
+  .attr('y', 340)
+  .attr('class', 'small')
+  .text("a")
+
+svg1.append('text')
+  .attr('x', 300)
+  .attr('y', 360)
+  .attr('class', 'Rrrrr')
+  .text("Vis!")
 
 svg1.append('text')
   .attr('x', 120)
-  .attr('y', 450)
+  .attr('y', 500)
   .attr('stroke', 'black')
   .style("font-size", 24)
   .text("By Abby Carr, Anika Das")
 
-  svg1.append('text')
-  .attr('x', 120)
-  .attr('y', 474)
+svg1.append('text')
+  .attr('x', 150)
+  .attr('y', 530)
   .attr('stroke', 'black')
   .style("font-size", 24)
   .text("Riya Gurnani, Veronica Aguiar")
 
-  var tri2 =  d3.symbol().type(d3.symbolDiamond).size(1800);
-    svg1.append("path")
-         .attr("d", tri2)
-         .attr("fill", "black")
-         .attr("stroke-width", "2px")
-         .attr("transform", "translate(60, 570) rotate(150)"); 
+var tri2 = d3.symbol().type(d3.symbolDiamond).size(1800);
+svg1.append("path")
+  .attr("d", tri2)
+  .attr("fill", "black")
+  .attr("stroke-width", "2px")
+  .attr("transform", "translate(60, 570) rotate(150)");
 
 
 
-const svg2 = d3.select("#book_open").append("svg").attr("width", 800).attr("height", 600)
+const svg2 = d3.select("#book_open").append("svg").attr("width", 710).attr("height", 600)
 
 // Add the path using this helper function
 svg2.append('rect')
-  .attr('x', 350)
+  .attr('x', 355)
   .attr('y', 10)
   .attr('width', 350)
   .attr('height', 500)
@@ -84,7 +95,7 @@ svg2.append('rect')
 
 // Add the path using this helper function
 svg2.append('rect')
-  .attr('x', 0)
+  .attr('x', 5)
   .attr('y', 10)
   .attr('width', 350)
   .attr('height', 500)
@@ -93,76 +104,179 @@ svg2.append('rect')
   .attr('fill', 'white');
 
 
-const svg23 = d3.select("#book_open").append("svg").attr("width", 40).attr("height", 60)
+const svg23 = d3.select("#book_open").append("svg").attr("width", 40).attr("height", 60);
 
 
 svg2.append('text')
-  .attr('x', 40)
-  .attr('y', 40)
-  .attr('stroke', 'black')
-  .style("font-size", 30)
-  .text("Abstract")
-
-svg2.append('text')
-  .attr('x', 10)
+  .attr('x', 35)
   .attr('y', 80)
+  .attr('class', 'heavy')
+  .style("font-size", 34)
+  .text("Abstract");
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 120)
   .attr('stroke', 'black')
   .style("font-size", 14)
-  .html('As more of our time is spent in the digital world, streaming services and social networking apps have')
+  .text('As more of our time is spent in the digital world,');
 
-
-
-  svg2.append('text')
-  .attr('x', 10)
-  .attr('y', 108)
-  .attr('stroke', 'black')
-  .style("font-size", 14)
-  .text('almost entirely replaced books. Despite the availability of e-readers such as Kindles, reading has become')
-
-
-
-  svg2.append('text')
-  .attr('x', 10)
-  .attr('y', 122)
-  .attr('stroke', 'black')
-  .style("font-size", 14)
-  .text('less and less common. One way this shift can be reversed is by giving people resources to find new books')
-
-
-  svg2.append('text')
-  .attr('x', 10)
+svg2.append('text')
+  .attr('x', 20)
   .attr('y', 140)
   .attr('stroke', 'black')
   .style("font-size", 14)
-  .text('The general area of interest for our project is the ratings and rankings of books, and how they compare')
-
-  svg2.append('text')
-  .attr('x', 10)
-  .attr('y', 170)
+  .text('streaming services and social networking apps');
+    
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 160)
   .attr('stroke', 'black')
   .style("font-size", 14)
-  .text('to one another. We intend to address the comparison of popular books and allow book readers to get a')
+  .text('have almost entirely replaced books. Despite the');
 
-
-  svg2.append('text')
-  .attr('x', 10)
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 180)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('availability of e-readers such as Kindles, reading'); 
+  
+svg2.append('text')
+  .attr('x', 20)
   .attr('y', 200)
   .attr('stroke', 'black')
   .style("font-size", 14)
-  .text('sense of similarities and differences between books.This will potentially give them new books to read') 
-
-
-   svg2.append('text')
-  .attr('x', 10)
-  .attr('y', 230)
+  .text('has become less and less common. One way this');
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 220)
   .attr('stroke', 'black')
   .style("font-size", 14)
-  .text('based on ones they have enjoyed in the past. We believe this visualization will address an important')
+  .text('shift can be reversed is by giving people resources');
 
-
-  svg2.append('text')
-  .attr('x', 10)
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 240)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('to find new books.The general area of interest for');
+  
+svg2.append('text')
+  .attr('x', 20)
   .attr('y', 260)
   .attr('stroke', 'black')
   .style("font-size", 14)
-  .text("topic as reading improves one's focus, memory, empathy, and communication skills.")
+  .text('our project is the ratings and rankings of books,'); 
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 280)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('and how they compare to one another. We intend'); 
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 300)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('to address the comparison of popular books'); 
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 320)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('and allow book readers to get a sense of '); 
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 340)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('similarities and differences between books. This'); 
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 360)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('will potentially give them new books to read'); 
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 380)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text(' based on ones they have enjoyed in the past.');
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 400)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('We believe this visualization will address an');
+  
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 420)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('important topic as reading improves one\'s focus,');
+
+svg2.append('text')
+  .attr('x', 20)
+  .attr('y', 440)
+  .attr('stroke', 'black')
+  .style("font-size", 14)
+  .text('memory, empathy, and communication skills.');
+
+svg2.append('text')
+  .attr('x', 440)
+  .attr('y', 200)
+  .attr('class', 'foreword')
+  .text('Course Project as part of');
+
+let a1 = svg2.append('a')
+  .attr("xlink:href", "https://northeastern.instructure.com/courses/18721");
+  
+a1.append("text")
+  .attr('x', 390)
+  .attr('y', 220)
+  .attr('class', 'foreword_link')
+  .text('DS4200 S22: Information Visualization');
+
+svg2.append('text')
+  .attr('x', 490)
+  .attr('y', 240)
+  .attr('class', 'foreword')
+  .text('taught by');
+
+let a2 = svg2.append('a')
+  .attr("xlink:href", "https://www.khoury.northeastern.edu/home/amosca/");
+
+a2.append("text")
+  .attr('x', 470)
+  .attr('y', 260)
+  .attr('class', 'foreword_link')
+  .text('Prof. Ab Mosca');
+
+let a3 = svg2.append('a')
+  .attr("xlink:href", "https://visualization.khoury.northeastern.edu/");
+
+a3.append("text")
+  .attr('x', 435)
+  .attr('y', 300)
+  .attr('class', 'foreword_link')
+  .text('Data Visualization @ Khoury');
+
+let a4 = svg2.append('a')
+  .attr("xlink:href", "https://www.khoury.northeastern.edu/");
+
+a4.append("text")
+  .attr('x', 450)
+  .attr('y', 320)
+  .attr('class', 'foreword_link')
+  .text('Northeastern University');

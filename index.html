@@ -27,103 +27,46 @@
   <div class='content-column'>
 
     <div id="book_cover"></div>
-
-<p>Course Project as part of
-      <a href='https://northeastern.instructure.com/courses/18721'>DS4200 S22: Information Visualization</a>, taught by
-      <a href='https://www.khoury.northeastern.edu/home/amosca/'>Prof. Ab Mosca</a>,
-      <a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>,
-      <a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.
-    </p>
-
-    
     <div id="book_open"></div>
 
-   
-
-
-    <h1>Abstract</h1>
-
-    <p>
-      As more of our time is spent in the digital world, streaming services and social networking apps have almost
-      entirely
-      replaced books. Despite the availability of e-readers such as Kindles, reading has become less and less common.
-      One way
-      this shift can be reversed is by giving people resources to find new books to read. The general area of interest
-      for our
-      project is the ratings and rankings of books, and how they compare to one another. We intend to address the
-      comparison
-      of popular books and allow book readers to get a sense of similarities and differences between books. This will
-      potentially give them new books to read based on ones they have enjoyed in the past. We believe this visualization
-      will
-      address an important topic as reading improves one's focus, memory, empathy, and communication skills.  <strong>Be
-        sure to delete this filler text before your final
-        submission!</strong>
-    </p>
   </div>
 
+  <div class='content-row'>
+    <div class='content-column' id="vis-container">
 
-  <!-- Visualization -->
-  <h1>Visualization</h1>
-
-  <div class='vis-holder' id="vis-container">
-
-    <!-- genre bubbles -->
-    <div class='genre-bubbles'>
-      <h2>The Many Genres on our Bookshelf</h2>
-      <h3>Hover over the bubbles to see the Genres and their book counts</h3>
-      <h4> The book count is the number of books in the Top 100 list categorized as that genre</h4>
+      <!-- genre bubbles -->
+      <div class='genre-bubbles'>
+        <h2>The Many Genres on our Bookshelf</h2>
+        <h3>Hover over the bubbles to see the Genres and their book counts</h3>
+        <h4> The book count is the number of books in the Top 100 list categorized as that genre</h4>
+      </div>
     </div>
-
+    <div class='content-column'>
+      <!-- Bar Graph -->
+      <h2>Lifetime Sales for Top 100 books by Publishing Date</h2>
+      <h3>Hover over the circles to view the total sales for each book</h3>
+      <div id="line_graph"></div>
+    </div>
   </div>
 
+  <div>
+    <h2>Count of User Ratings by Number of Stars</h2>
+    <div class='content-row'>
+      <div class='content-column'>
+        <!-- Book Selection and Bar Graph -->
+        <h3>By Book</h2>
+          <div id="book_dropdown"></div>
+          <div id="ratings"></div>
+      </div>
 
-
-  <!-- Book Selection and Bar Graph -->
-  <h2>Count of User Star Ratings By Book</h2>
-  <div id="book_dropdown"></div>
-  <div id="ratings"></div>
-
-
-  <!-- Bar Graph -->
-
-  <h2>Lifetime Sales for Top 100 books by Publishing Date</h2>
-  <h3>Hover over the circles to view the total sales for each book</h3>
-  <div id="line_graph"></div>
-
-  <!-- More writeup -->
-  <div class='content-column'>
-
-    <h1>Demo Video</h1>
-
-    <p>
-      Embed an MP4 demo video using the HTML5 &lt;video&gt; tag. For example, below is a screen recording Prof. Cody
-      Dunne made of Mike Bostock's flexible transitions in D3. <strong>Be sure to delete this filler text before your
-        final submission!</strong>
-    </p>
-
+      <div class='content-column'>
+        <h3>By Number Stars</h2>
+          <!-- Ratings Bubble Graph! -->
+          <div class='vis-holder' id='my_dataviz_dropdown'></div>
+          <div class='vis-holder' id="my_dataviz"></div>
+      </div>
+    </div>
   </div>
-
-  
-
-
-
-
-  <!-- Visualization -->
-  <h1>Visualization</h1>
-
-
-
-
-  <div class='vis-holder' id="vis-container">
-
-    <div class='vis-holder' id="line_graph"></div>
-
-    <div class='vis-holder' id='my_dataviz_dropdown'></div>
-
-      <div class='vis-holder' id="my_dataviz">
-
-  </div>
-
 
   <!-- More writeup -->
   <div class='content-column'>
