@@ -11,7 +11,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
           id: d.Goodreads_ID,
           name: d.Title,
           date: formatYear(d.Publ_Date),
-          value: parseFloat(d.Value.split("$")[1].replace(/,/g, ""))
+          value: parseFloat(d.Value.split("$")[1].replace(/,/g, "")),
+          visual_val: d.Value
         }
       });
 
@@ -79,7 +80,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       }
       const mousemove = function (event, d) {
         Tooltip
-          .html("Book: " + d.name + "<br> Total Sales: " + d.value + " dollars ($)")
+          .html("Book: " + d.name + "<br> Total Sales: " + d.visual_val)
           .style("left", event.x + "px")
           .style("top", event.y + "px")
       }
