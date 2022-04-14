@@ -1,18 +1,20 @@
 /* General formatting */
 body {
-	padding: 0 10px;
-	font: 18px/1.5 -apple-system, BlinkMacSystemFont, "avenir next",avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans",roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
-	sans-serif;
+  padding: 0 10px;
+  font: 18px/1.5 -apple-system, BlinkMacSystemFont, "avenir next", avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans", roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
+    sans-serif;
 }
 
-h1, h2, h3 {
-	line-height: 1.2
+h1,
+h2,
+h3 {
+  line-height: 1.2
 }
 
 /* Narrow Column */
 .content-column {
-	max-width: 65%;
-	margin: 40px auto;
+  max-width: 65%;
+  margin: 40px auto;
 }
 
 /* Full-width and Full-height */
@@ -21,8 +23,8 @@ h1, h2, h3 {
   height: 100%;
 }
 
-.svg{
-  border:1px solid red;
+.svg {
+  border: 1px solid red;
 }
 
 .bubbles-tooltip {
@@ -46,9 +48,13 @@ h1, h2, h3 {
   border-radius: 8px;
 }
 
+.node {
+  opacity: .8;
+}
+
 /* https://www.d3-graph-gallery.com/graph/interactivity_brush.html */
 .brushed {
   opacity: 1 !important;
-  stroke: black;
-  stroke-width: 8px;
+  stroke: #DDA0DD;
+  stroke-width: 4px;
 }

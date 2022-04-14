@@ -69,9 +69,6 @@ svg1.append('text')
 
 
 
-//////////OPEN BOOK 
-
-
 const svg2 = d3.select("#book_open").append("svg").attr("width", 800).attr("height", 600)
 
 // Add the path using this helper function

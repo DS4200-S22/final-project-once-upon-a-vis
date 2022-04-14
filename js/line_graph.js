@@ -128,42 +128,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         genre_tooltip.style("opacity", 0);
       }
 
-      // Initialize the circle: all located at the center of the svg area
-      const bubbles = genre_svg.append("g")
-        .selectAll("circle")
-        .data(counts)
-        .join("circle")
-        .attr("class", "node")
-        .attr("r", d => size(d.Count))
-        .attr("cx", w / 2)
-        .attr("cy", h / 2)
-        .style("fill", "purple")
-        .style("fill-opacity", 0.8)
-        .attr("stroke", "black")
-        .style("stroke-width", 1)
-        .on("mouseover", genre_mouseover)
-        .on("mousemove", genre_mousemove)
-        .on("mouseleave", genre_mouseleave)
 
-
-      // Features of the forces applied to the nodes:
-      const simulation = d3.forceSimulation()
-        .force("center", d3.forceCenter().x(w / 2).y(h / 2)) // Attraction to the center of the svg area
-        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-        .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.Count) + 3) }).iterations(1)) // Force that avoids circle overlapping
-
-      // Apply these forces to the nodes and update their positions.
-      // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
-      simulation
-        .nodes(counts)
-        .on("tick", function (d) {
-          bubbles
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y)
-        })
-
-
-      // ----------- Brushing for the Line Graph ------------
+      // ----------- Brushing and Linking ------------
 
       // make brush
       let brush = d3.brush()
@@ -212,6 +178,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         let extent = brushEvent.selection;
         let IDs = [];
         points.classed("brushed", (d) => {
+          // console.log(d);
           let yes = isBrushed(extent, x(d.date), y(d.value));
           item = d.id;
           // collect IDs of brushed Books
@@ -222,14 +189,51 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         });
         let lg = list_genres(IDs);
         bubbles.classed("brushed", (d) => {
-          let bub_data = d._data_
-          let q = lg.indexOf(bub_data.Genre) === -1
+          let o = d["Genre"];
+          // console.log(d);
+          let q = (lg.indexOf(o) === -1);
           if (!q) {
-            return d;
+            return true;
           };
         })
       }
 
+      // --------- Create bubble chart staticallly based on data --------
+
+      // Initialize the circle: all located at the center of the svg area
+      let bubbles = genre_svg
+        .append("g")
+        .selectAll("circle")
+        .data(counts)
+        .join("circle")
+        .attr("class", "node")
+        .attr("r", d => size(d.Count))
+        .attr("cx", w / 2)
+        .attr("cy", h / 2)
+        .attr("fill", "purple")
+        .attr("fill-opacity", 0.8)
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .on("mouseover", genre_mouseover)
+        .on("mousemove", genre_mousemove)
+        .on("mouseleave", genre_mouseleave)
+
+
+      // Features of the forces applied to the nodes:
+      const simulation = d3.forceSimulation()
+        .force("center", d3.forceCenter().x(w / 2).y(h / 2)) // Attraction to the center of the svg area
+        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+        .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.Count) + 3) }).iterations(1)) // Force that avoids circle overlapping
+
+      // Apply these forces to the nodes and update their positions.
+      // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+      simulation
+        .nodes(counts)
+        .on("tick", function (d) {
+          bubbles
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+        })
 
       // --------- Create line graph statically based on data -------
 
