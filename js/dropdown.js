@@ -153,33 +153,33 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       update_y(max);
       update_bars();
     }
-    
-    
+
+
     // Add the x Axis
-  bar_svg.append("g")
+    bar_svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-  
-  // text label for the x axis
-  bar_svg.append("text")             
+      .call(d3.axisBottom(ratings_x));
+
+    // text label for the x axis
+    bar_svg.append("text")
       .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + margin.top + 25) + ")")
+        "translate(" + (width / 2) + " ," +
+        (height + margin.top + 25) + ")")
       .style("text-anchor", "middle")
       .text("User Star Rating");
-  
+
     // Add the y Axis
-  bar_svg.append("g")
-      .call(d3.axisLeft(y));
-  
+    bar_svg.append("g")
+      .call(d3.axisLeft(ratings_y));
+
     // text label for the y axis
-  bar_svg.append("text")
+    bar_svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
+      .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Count of Ratings"); 
+      .text("Count of Ratings");
 
     book_selection();
 
