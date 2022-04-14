@@ -81,8 +81,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       .enter()
       .append('rect')
       .attr('x', (actual, index, array) => ratings_x(index))
-      .attr('y', (actual, index, array) => ratings_y(10000))
-      .attr('height', (actual, index, array) => height - margin.bottom - ratings_y(10000))
+      .attr('y', (actual, index, array) => ratings_y(actual))
+      .attr('height', (actual, index, array) => height - margin.bottom - ratings_y(actual))
       .attr('width', ratings_x.bandwidth());
 
 
@@ -119,21 +119,21 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
       ratings_y.domain([0, max]);
 
-
-
       y_axis.transition()
         .duration(1000)
         .call(d3.axisLeft(ratings_y));
     }
 
     // update the bars!!
-    function update_bars(arr) {
+    function update_bars() {
       // new bars
       let new_bars = rates[current_index];
       let values = Object.keys(new_bars).map(function (key) {
         return new_bars[key];
       });
       bar_data = values.slice(1, values.length);
+
+      rating_bars.data(bar_data);
 
       rating_bars.transition()
         .duration(1000)
@@ -143,15 +143,15 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // update the entire graph
     function book_selection() {
-      let a = rates[current_index]["5 Stars"];
-      let b = rates[current_index]["4 Stars"];
-      let c = rates[current_index]["3 Stars"];
-      let d = rates[current_index]["2 Stars"];
-      let e = rates[current_index]["1 Star"];
+      let a = rates[current_index]["five_stars"];
+      let b = rates[current_index]["four_stars"];
+      let c = rates[current_index]["three_stars"];
+      let d = rates[current_index]["two_stars"];
+      let e = rates[current_index]["one_star"];
 
-      let max = d3.max([a, b, c, d, e]);
+      let max = Math.max(a, b, c, d, e);
       update_y(max);
-      update_bars([a, b, c, d, e]);
+      update_bars();
     }
     
     
@@ -180,6 +180,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text("Count of Ratings"); 
+
+    book_selection();
 
   });
 });
