@@ -3,83 +3,6 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
   d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_genres.csv').then((genres) => {
     d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((cleaned_100) => {
 
-      // ---------- genre bubbles ----------- (transfered for linking)
-
-      // set the dimensions and margins of the graph
-      const w = 750
-      const h = 750
-
-
-      // append the svg object to the body of the page
-      const genre_svg = d3.select(".genre-bubbles")
-        .append("svg")
-        .attr("width", w)
-        .attr("height", h);
-
-      // Size scale for cošntries
-      const size = d3.scaleLinear()
-        .domain([0, 100])
-        .range([7, 200]);  // circle will be between 7 and 55 px wide
-
-      // NEW CODE creates tooltip
-      const genre_tooltip = d3.select(".genre-bubbles")
-        .append("div")
-        .attr("id", "bubbles-tooltip")
-        .style("opacity", 0)
-        .attr("class", "bubbles-tooltip");
-
-      const genre_mouseover = function (event, d) {
-        genre_tooltip.html("Genre: " + d.Genre + "<br> Count: " +
-          d.Count + "<br>")
-          .style("opacity", 1);
-      }
-
-      const genre_mousemove = function (event, d) {
-        genre_tooltip.style("left", (event.x) + "px")
-          .style("top", (event.y) + "px");
-      }
-
-      const genre_mouseleave = function (event, d) {
-        genre_tooltip.style("opacity", 0);
-      }
-
-
-      // Initialize the circle: all located at the center of the svg area
-      const g = genre_svg.append("g");
-
-      const node = g
-        .selectAll("circle")
-        .data(counts)
-        .join("circle")
-        .attr("class", "node")
-        .attr("r", d => size(d.Count))
-        .attr("cx", w / 2)
-        .attr("cy", h / 2)
-        .style("fill", "purple")
-        .style("fill-opacity", 0.8)
-        .attr("stroke", "black")
-        .style("stroke-width", 1)
-        .on("mouseover", genre_mouseover)
-        .on("mousemove", genre_mousemove)
-        .on("mouseleave", genre_mouseleave)
-
-
-      // Features of the forces applied to the nodes:
-      const simulation = d3.forceSimulation()
-        .force("center", d3.forceCenter().x(w / 2).y(h / 2)) // Attraction to the center of the svg area
-        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-        .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.Count) + 3) }).iterations(1)) // Force that avoids circle overlapping
-
-      // Apply these forces to the nodes and update their positions.
-      // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
-      simulation
-        .nodes(counts)
-        .on("tick", function (d) {
-          node
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y)
-        })
-
       // ------------- preload the cleaned_data for use --------------------
 
       // set the dimensions and margins of the graph
@@ -165,6 +88,81 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
           .style("opacity", 0)
       }
 
+      // ---------- genre bubbles ----------- (transfered for linking)
+
+      // set the dimensions and margins of the graph
+      const w = 750
+      const h = 750
+
+
+      // append the svg object to the body of the page
+      const genre_svg = d3.select(".genre-bubbles")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+      // Size scale for cošntries
+      const size = d3.scaleLinear()
+        .domain([0, 100])
+        .range([7, 200]);  // circle will be between 7 and 55 px wide
+
+      // NEW CODE creates tooltip
+      const genre_tooltip = d3.select(".genre-bubbles")
+        .append("div")
+        .attr("id", "bubbles-tooltip")
+        .style("opacity", 0)
+        .attr("class", "bubbles-tooltip");
+
+      const genre_mouseover = function (event, d) {
+        genre_tooltip.html("Genre: " + d.Genre + "<br> Count: " +
+          d.Count + "<br>")
+          .style("opacity", 1);
+      }
+
+      const genre_mousemove = function (event, d) {
+        genre_tooltip.style("left", (event.x) + "px")
+          .style("top", (event.y) + "px");
+      }
+
+      const genre_mouseleave = function (event, d) {
+        genre_tooltip.style("opacity", 0);
+      }
+
+      // Initialize the circle: all located at the center of the svg area
+      const bubbles = genre_svg.append("g")
+        .selectAll("circle")
+        .data(counts)
+        .join("circle")
+        .attr("class", "node")
+        .attr("r", d => size(d.Count))
+        .attr("cx", w / 2)
+        .attr("cy", h / 2)
+        .style("fill", "purple")
+        .style("fill-opacity", 0.8)
+        .attr("stroke", "black")
+        .style("stroke-width", 1)
+        .on("mouseover", genre_mouseover)
+        .on("mousemove", genre_mousemove)
+        .on("mouseleave", genre_mouseleave)
+
+
+      // Features of the forces applied to the nodes:
+      const simulation = d3.forceSimulation()
+        .force("center", d3.forceCenter().x(w / 2).y(h / 2)) // Attraction to the center of the svg area
+        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+        .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.Count) + 3) }).iterations(1)) // Force that avoids circle overlapping
+
+      // Apply these forces to the nodes and update their positions.
+      // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+      simulation
+        .nodes(counts)
+        .on("tick", function (d) {
+          bubbles
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+        })
+
+
       // ----------- Brushing for the Line Graph ------------
 
       // make brush
@@ -197,19 +195,16 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       function list_genres(IDs) {
         let list_genre = []
         genres.map(function (d) {
-          if (IDs.indexOf(d.Goodreads_ID) != -1) {
+          if (IDs.indexOf(d.Goodreads_ID) === -1) {
+          } else {
             for (const [key, value] of Object.entries(d)) {
-              if (value && !list_genre.includes(key)) {
+              if (value == "True" && !list_genre.includes(key)) {
                 list_genre.push(key);
               }
             }
           }
         });
         return list_genre;
-      }
-
-      function highlight_genres(g) {
-
       }
 
 
@@ -225,9 +220,16 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
           }
           return yes;
         });
-        let g = list_genres(IDs);
-        highlight_genres(g);
+        let lg = list_genres(IDs);
+        bubbles.classed("brushed", (d) => {
+          let bub_data = d._data_
+          let q = lg.indexOf(bub_data.Genre) === -1
+          if (!q) {
+            return d;
+          };
+        })
       }
+
 
       // --------- Create line graph statically based on data -------
 

@@ -45,3 +45,10 @@ h1, h2, h3 {
   border: 0px;
   border-radius: 8px;
 }
+
+/* https://www.d3-graph-gallery.com/graph/interactivity_brush.html */
+.brushed {
+  opacity: 1 !important;
+  stroke: black;
+  stroke-width: 8px;
+}

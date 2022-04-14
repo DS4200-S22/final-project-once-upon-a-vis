@@ -154,12 +154,6 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       update_bars();
     }
 
-
-    // Add the x Axis
-    bar_svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(ratings_x));
-
     // text label for the x axis
     bar_svg.append("text")
       .attr("transform",
