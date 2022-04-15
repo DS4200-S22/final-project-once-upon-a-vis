@@ -4,7 +4,7 @@ const svg1 = d3.select("#book_cover").append("svg").attr("width", 520).attr("hei
 // Add the path using this helper function
 svg1.append('rect')
   .attr('x', 80)
-  .attr('y', 120)
+  .attr('y', 20)
   .attr('width', 400)
   .attr('height', 478)
   .attr('stroke', 'black')
@@ -16,9 +16,9 @@ svg1.append('rect')
 // Add the path using this helper function
 svg1.append('rect')
   .attr('x', 40)
-  .attr('y', 160)
+  .attr('y', 40)
   .attr('width', 40)
-  .attr('height', 400)
+  .attr('height', 420)
   .attr('stroke', 'black')
   .attr('fill', 'black');
 
@@ -26,7 +26,7 @@ svg1.append('rect')
 // Add the path using this helper function
 svg1.append('rect')
   .attr('x', 40)
-  .attr('y', 120)
+  .attr('y', 20)
   .attr('width', 40)
   .attr('height', 40)
   .attr('stroke', 'black')
@@ -34,39 +34,39 @@ svg1.append('rect')
 
 svg1.append('text')
   .attr('x', 110)
-  .attr('y', 220)
+  .attr('y', 120)
   .attr('stroke', 'black')
   .style("font-size", 24)
   .text("Welcome to Our Visualization:")
 
 svg1.append('text')
   .attr('x', 110)
-  .attr('y', 300)
+  .attr('y', 200)
   .attr('class', 'heavy')
   .text("Once Upon")
 
 svg1.append('text')
   .attr('x', 275)
-  .attr('y', 340)
+  .attr('y', 240)
   .attr('class', 'small')
   .text("a")
 
 svg1.append('text')
   .attr('x', 300)
-  .attr('y', 360)
+  .attr('y', 260)
   .attr('class', 'Rrrrr')
   .text("Vis!")
 
 svg1.append('text')
   .attr('x', 120)
-  .attr('y', 500)
+  .attr('y', 400)
   .attr('stroke', 'black')
   .style("font-size", 24)
   .text("By Abby Carr, Anika Das")
 
 svg1.append('text')
   .attr('x', 150)
-  .attr('y', 530)
+  .attr('y', 430)
   .attr('stroke', 'black')
   .style("font-size", 24)
   .text("Riya Gurnani, Veronica Aguiar")
@@ -76,7 +76,7 @@ svg1.append("path")
   .attr("d", tri2)
   .attr("fill", "black")
   .attr("stroke-width", "2px")
-  .attr("transform", "translate(60, 570) rotate(150)");
+  .attr("transform", "translate(60, 465) rotate(150)");
 
 
 
@@ -102,9 +102,6 @@ svg2.append('rect')
   .attr('stroke', 'black')
   .attr('stroke-width', '3px')
   .attr('fill', 'white');
-
-
-const svg23 = d3.select("#book_open").append("svg").attr("width", 40).attr("height", 60);
 
 
 svg2.append('text')

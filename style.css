@@ -83,8 +83,9 @@ h3 {
   text-decoration: underline;
 }
 
-.inro {
-  display:flex;
-  align-items:center;
-  justify-content:center;
+#repo_button {
+  width: 200px;
+  border-radius: 5%;
+  height:auto;
 }
+
