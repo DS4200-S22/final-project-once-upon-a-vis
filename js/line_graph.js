@@ -1,28 +1,40 @@
-const formatYear = d3.timeParse("%m/%d/%y");
+const parseTime = d3.timeParse("%m/%d/%y");
+const formatYear = d3.timeFormat("%Y");
 d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/genres_with_counts.csv').then((counts) => {
   d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_genres.csv').then((genres) => {
     d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-vis/main/Data/top100_goodreads_cleaned.csv').then((cleaned_100) => {
 
       // ------------- preload the cleaned_data for use --------------------
 
-      // set the dimensions and margins of the graph
       const date_and_value = cleaned_100.map(function (d) {
         return {
           id: d.Goodreads_ID,
           name: d.Title,
-          date: formatYear(d.Publ_Date),
+          date: formatYear(parseTime(d.Publ_Date)),
           value: parseFloat(d.Value.split("$")[1].replace(/,/g, "")),
           visual_val: d.Value
-        }
+        };
       });
 
+      let year_and_total = {};
+      function total() {
+        date_and_value.forEach(element => {
+          if (element.date in year_and_total) {
+            year_and_total[element.date] += element.value;
+          }
+          else {
+            year_and_total[element.date] = element.value;
+          }
+        });
+      }
+      total();
+
       const margin = { top: 10, right: 30, bottom: 40, left: 100 },
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 800 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
 
       const maxDate = d3.max(date_and_value, function (d) { return d.date; });
       const minDate = d3.min(date_and_value, function (d) { return d.date; });
-      const maxValue = d3.max(date_and_value, function (d) { return d.value; });
 
       // ----- Create the line graph structure -------
 
@@ -35,30 +47,31 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
           "translate(" + margin.left + "," + margin.top + ")");
 
       // Add X axis --> it is a date format
-      const x = d3.scaleTime()
+      const x = d3.scaleLinear()
         .domain([minDate, maxDate])
         .range([0, width]);
       svg.append("g")
         .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+
 
       // Add Y axis
       const y = d3.scaleLinear()
-        .domain([0, d3.max(date_and_value, function (d) { return d.value; })])
+        .domain([0, d3.max(Object.entries(year_and_total), function (d) { return d[1]; })])
         .range([height, 0]);
       svg.append("g")
         .call(d3.axisLeft(y))
 
       // Add the line
       svg.append("path")
-        .datum(date_and_value)
+        .datum(Object.entries(year_and_total))
         .attr("fill", "none")
         .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3)
         .attr("d", d3.line()
           .curve(d3.curveBasis)
-          .x(function (d) { return x(d.date) })
-          .y(function (d) { return y(d.value) })
+          .x(function (d) { return x(d[0]) })
+          .y(function (d) { return y(d[1]) })
         )
 
 
@@ -212,7 +225,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .attr("cx", w / 2)
         .attr("cy", h / 2)
         .attr("fill", "purple")
-        .attr("fill-opacity", 0.8)
+        .attr("fill-opacity", 0.5)
         .attr("stroke", "black")
         .attr("stroke-width", 1)
         .on("mouseover", genre_mouseover)
@@ -249,17 +262,12 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .attr("cy", d => y(d.value))
         .attr("r", 3)
         .attr("stroke", "#69b3a2")
-        .attr("stroke-width", 1)
+        .attr("stroke-width", 2)
         .attr("fill", "white")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
 
-
-      // Add the x Axis
-      svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
 
       // text label for the x axis
       svg.append("text")

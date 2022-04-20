@@ -5,9 +5,9 @@ let ratings_y;
 let ratings_x;
 
 // Set margins and dimensions 
-const margin = { top: 50, right: 50, bottom: 50, left: 200 };
-const width = 900; //- margin.left - margin.right;
-const height = 650; //- margin.top - margin.bottom;
+const margin = { top: 50, right: 50, bottom: 100, left: 200 };
+const width = 1200; //- margin.left - margin.right;
+const height = 800; //- margin.top - margin.bottom;
 
 // const bar svg
 const bar_svg = d3.select("#ratings")
