@@ -5,26 +5,30 @@ body {
     sans-serif;
 }
 
+/* Basic line formatting for headers */
 h1,
 h2,
 h3 {
   line-height: 1.2
 }
 
+/* flex formatting for columns */
 .content-column {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  align-items:center;
-  justify-content:center;
+  align-items: center;
+  justify-content: center;
 }
 
+/* flex formatting for rows */
 .content-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width:100%;
+  width: 100%;
 }
 
+/* formatting for the tooltip for the Genre Bubble Chart */
 .bubbles-tooltip {
   position: fixed;
   text-align: center;
@@ -35,6 +39,7 @@ h3 {
   border-radius: 8px;
 }
 
+/* formatting for the tooltip for the Reviews Bubble Chart */
 .reviews-tooltip {
   position: fixed;
   text-align: center;
@@ -45,10 +50,12 @@ h3 {
   border-radius: 8px;
 }
 
+/* Make genre bubbles half opacity */
 .node {
   opacity: .5;
 }
 
+/* Change the Book Points and linked Genre Bubbles when brushed  */
 /* https://www.d3-graph-gallery.com/graph/interactivity_brush.html */
 .brushed {
   opacity: 1 !important;
@@ -56,26 +63,29 @@ h3 {
   stroke-width: 5px;
 }
 
+/* small text */
 .small {
   font: italic 30px sans-serif;
 }
 
+/* heavy text */
 .heavy {
   font: bold 50px sans-serif;
 }
 
-/* Note that the color of the text is set with the    *
-     * fill property, the color property is for HTML only */
+/* cursive text */
 .Rrrrr {
   font: bold italic 70px serif;
   fill: #443b98;
 }
 
+/* provided foreword formatting */
 .foreword {
   font: 15px -apple-system, BlinkMacSystemFont, "avenir next", avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans", roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
     sans-serif;
 }
 
+/* link version  of foreword */
 .foreword_link {
   font: 15px -apple-system, BlinkMacSystemFont, "avenir next", avenir, "Segoe UI", "lucida grande", "helvetica neue", helvetica, "Fira Sans", roboto, noto, "Droid Sans", cantarell, oxygen, ubuntu, "franklin gothic medium", "century gothic", "Liberation Sans",
     sans-serif;
@@ -83,9 +93,9 @@ h3 {
   text-decoration: underline;
 }
 
+/* format github repo button */
 #repo_button {
   width: 200px;
   border-radius: 5%;
-  height:auto;
+  height: auto;
 }
-
