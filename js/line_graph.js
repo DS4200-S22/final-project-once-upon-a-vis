@@ -6,6 +6,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
       // ------------- preload the cleaned_data for use --------------------
 
+      // Get data for the points on the graph
       const date_and_value = cleaned_100.map(function (d) {
         return {
           id: d.Goodreads_ID,
@@ -16,6 +17,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         };
       });
 
+      // Compile data for the line on the graph
       let year_and_total = {};
       function total() {
         date_and_value.forEach(element => {
@@ -29,15 +31,18 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       }
       total();
 
+      // constant size of chart
       const margin = { top: 10, right: 30, bottom: 40, left: 100 },
         width = 800 - margin.left - margin.right,
         height = 800 - margin.top - margin.bottom;
 
+      // max vals for X axis
       const maxDate = d3.max(date_and_value, function (d) { return d.date; });
       const minDate = d3.min(date_and_value, function (d) { return d.date; });
 
       // ----- Create the line graph structure -------
 
+      // Create Line Graph svg
       const svg = d3.select("#line_graph")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -54,15 +59,14 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(x).tickFormat(d3.format("d")));
 
-
       // Add Y axis
       const y = d3.scaleLinear()
         .domain([0, d3.max(Object.entries(year_and_total), function (d) { return d[1]; })])
         .range([height, 0]);
       svg.append("g")
-        .call(d3.axisLeft(y))
+        .call(d3.axisLeft(y));
 
-      // Add the line
+      // Add the line from given data
       svg.append("path")
         .datum(Object.entries(year_and_total))
         .attr("fill", "none")
@@ -70,43 +74,42 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .attr("stroke-width", 3)
         .attr("d", d3.line()
           .curve(d3.curveBasis)
-          .x(function (d) { return x(d[0]) })
-          .y(function (d) { return y(d[1]) })
-        )
+          .x(function (d) { return x(d[0]); })
+          .y(function (d) { return y(d[1]); })
+        );
 
 
       // -------- create Tooltip for the Hover effect on the line graph --------
 
-      const yTooltipOffset = 1
       // create a tooltip
       const Tooltip = d3.select("#line_graph")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
         .style("background-color", "white")
-        .style("padding", "5px")
+        .style("padding", "5px");
 
       // Three function that change the tooltip when user hover / move / leave a cell
       const mouseover = function (event, d) {
         Tooltip
-          .style("opacity", 1)
-      }
+          .style("opacity", 1);
+      };
       const mousemove = function (event, d) {
         Tooltip
           .html("Book: " + d.name + "<br> Total Sales: " + d.visual_val)
           .style("left", event.x + "px")
-          .style("top", event.y + "px")
-      }
+          .style("top", event.y + "px");
+      };
       const mouseleave = function (event, d) {
         Tooltip
-          .style("opacity", 0)
-      }
+          .style("opacity", 0);
+      };
 
       // ---------- genre bubbles ----------- (transfered for linking)
 
       // set the dimensions and margins of the graph
-      const w = 750
-      const h = 750
+      const w = 750;
+      const h = 750;
 
 
       // append the svg object to the body of the page
@@ -127,20 +130,21 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .style("opacity", 0)
         .attr("class", "bubbles-tooltip");
 
+      // The three hover functions
       const genre_mouseover = function (event, d) {
         genre_tooltip.html("Genre: " + d.Genre + "<br> Count: " +
           d.Count + "<br>")
           .style("opacity", 1);
-      }
+      };
 
       const genre_mousemove = function (event, d) {
         genre_tooltip.style("left", (event.x) + "px")
           .style("top", (event.y) + "px");
-      }
+      };
 
       const genre_mouseleave = function (event, d) {
         genre_tooltip.style("opacity", 0);
-      }
+      };
 
 
       // ----------- Brushing and Linking ------------
@@ -149,10 +153,10 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       let brush = d3.brush()
         .extent([[0, 0], [width, height]])
         .on("start", clear)
-        .on("brush", updateGenres)
+        .on("brush", updateGenres);
 
       // Add brush1 to svg1
-      svg.call(brush)
+      svg.call(brush);
 
       // clear function
       function clear() {
@@ -173,7 +177,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
       // helper: get a list of genres from the list of Goodreads_IDs
       function list_genres(IDs) {
-        let list_genre = []
+        let list_genre = [];
         genres.map(function (d) {
           if (IDs.indexOf(d.Goodreads_ID) === -1) {
           } else {
@@ -187,12 +191,11 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         return list_genre;
       }
 
-
+      // Process of lining the highleted points -> their ID -> Genres for that ID
       function updateGenres(brushEvent) {
         let extent = brushEvent.selection;
         let IDs = [];
         points.classed("brushed", (d) => {
-          // console.log(d);
           let yes = isBrushed(extent, x(d.date), y(d.value));
           item = d.id;
           // collect IDs of brushed Books
@@ -203,13 +206,12 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         });
         let lg = list_genres(IDs);
         bubbles.classed("brushed", (d) => {
-          let o = d["Genre"];
-          // console.log(d);
+          let o = d.Genre;
           let q = (lg.indexOf(o) === -1);
           if (!q) {
             return true;
-          };
-        })
+          }
+        });
       }
 
       // --------- Create bubble chart staticallly based on data --------
@@ -230,14 +232,14 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .attr("stroke-width", 1)
         .on("mouseover", genre_mouseover)
         .on("mousemove", genre_mousemove)
-        .on("mouseleave", genre_mouseleave)
+        .on("mouseleave", genre_mouseleave);
 
 
       // Features of the forces applied to the nodes:
       const simulation = d3.forceSimulation()
         .force("center", d3.forceCenter().x(w / 2).y(h / 2)) // Attraction to the center of the svg area
-        .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-        .force("collide", d3.forceCollide().strength(.2).radius(function (d) { return (size(d.Count) + 3) }).iterations(1)) // Force that avoids circle overlapping
+        .force("charge", d3.forceManyBody().strength(0.1)) // Nodes are attracted one each other of value is > 0
+        .force("collide", d3.forceCollide().strength(0.2).radius(function (d) { return (size(d.Count) + 3); }).iterations(1)); // Force that avoids circle overlapping
 
       // Apply these forces to the nodes and update their positions.
       // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
@@ -246,8 +248,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .on("tick", function (d) {
           bubbles
             .attr("cx", d => d.x)
-            .attr("cy", d => d.y)
-        })
+            .attr("cy", d => d.y);
+        });
 
       // --------- Create line graph statically based on data -------
 
@@ -266,7 +268,7 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
         .attr("fill", "white")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
+        .on("mouseleave", mouseleave);
 
 
       // text label for the x axis
