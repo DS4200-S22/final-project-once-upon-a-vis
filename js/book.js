@@ -28,7 +28,7 @@ svg1.append('rect')
   .attr('stroke', 'black')
   .attr('fill', 'black');
 
-var tri2 = d3.symbol().type(d3.symbolDiamond).size(1800);
+let tri2 = d3.symbol().type(d3.symbolDiamond).size(1800);
 svg1.append("path")
   .attr("d", tri2)
   .attr("fill", "black")
