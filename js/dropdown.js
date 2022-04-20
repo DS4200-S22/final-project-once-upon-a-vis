@@ -1,15 +1,18 @@
+// set index of the book we're currently seeing in the chart
 let current_index = 0;
+// data for the bar chart
 let bar_data;
+// the graph standards
 let rating_bars;
 let ratings_y;
 let ratings_x;
 
 // Set margins and dimensions 
 const margin = { top: 50, right: 50, bottom: 100, left: 200 };
-const width = 1200; //- margin.left - margin.right;
-const height = 800; //- margin.top - margin.bottom;
+const width = 1200;
+const height = 800;
 
-// const bar svg
+// make svg for the bar chart
 const bar_svg = d3.select("#ratings")
   .append("svg")
   .attr("class", "holder")
@@ -36,9 +39,9 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
       .data(goodreads)
       .enter()
       .append("option")
-      .sort((a, b) => d3.ascending(a["Title"], b["Title"])) // Alphabetical Sort
-      .attr("value", function (d) { return d["Title"]; })
-      .text(function (d) { return d["Title"]; });
+      .sort((a, b) => d3.ascending(a.Title, b.Title)) // Alphabetical Sort
+      .attr("value", function (d) { return d.Title; })
+      .text(function (d) { return d.Title; });
 
 
     // -----------------< build original ratings bar graph >-----------------
@@ -90,8 +93,8 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // get book index by the Goodreads ID
     function get_book_ind(ID) {
-      for (i in rates) {
-        if (rates[i]["Goodreads_ID"] == ID) {
+      for (let i in rates) {
+        if (rates[i].Goodreads_ID == ID) {
           return i;
         }
       }
@@ -99,9 +102,9 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // get book Goodreads ID by title
     function get_book_ID(title) {
-      for (i in goodreads) {
-        if (goodreads[i]["Title"] == title) {
-          return goodreads[i]["Goodreads_ID"];
+      for (let i in goodreads) {
+        if (goodreads[i].Title == title) {
+          return goodreads[i].Goodreads_ID;
         }
       }
     }
@@ -143,11 +146,11 @@ d3.csv('https://raw.githubusercontent.com/DS4200-S22/final-project-once-upon-a-v
 
     // update the entire graph
     function book_selection() {
-      let a = rates[current_index]["five_stars"];
-      let b = rates[current_index]["four_stars"];
-      let c = rates[current_index]["three_stars"];
-      let d = rates[current_index]["two_stars"];
-      let e = rates[current_index]["one_star"];
+      let a = rates[current_index].five_stars;
+      let b = rates[current_index].four_stars;
+      let c = rates[current_index].three_stars;
+      let d = rates[current_index].two_stars;
+      let e = rates[current_index].one_star;
 
       let max = Math.max(a, b, c, d, e);
       update_y(max);
