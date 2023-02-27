@@ -1,6 +1,5 @@
 # DS4200 S22 Final Project
 
-This template is the starting point for your final project's webpage. Please read all of the information  below. 
 
 ## Link to Project Webpage
 
